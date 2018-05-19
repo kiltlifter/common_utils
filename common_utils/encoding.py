@@ -11,6 +11,9 @@ __license__ = "MIT"
 
 
 class Base64Util:
+    """
+    Class to convert between base64 encoded and decoded strings
+    """
     @staticmethod
     def base64_encode_str(str_val: str) -> str:
         """

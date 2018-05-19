@@ -12,6 +12,9 @@ __license__ = "MIT"
 
 
 class SleepUtil:
+    """
+    Class that for random or specified timeouts
+    """
     @staticmethod
     def random_int(max_int: int=12) -> int:
         """

@@ -14,6 +14,9 @@ __license__ = "MIT"
 
 
 class FileUtil:
+    """
+    Class of file manipulation utilities
+    """
     FileObj = TypeVar('FileObj', str, bytes, bytearray)
 
     @staticmethod
