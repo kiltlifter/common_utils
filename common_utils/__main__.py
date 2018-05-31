@@ -7,6 +7,7 @@ import argparse
 from .input_output import FileUtil
 from .encoding import Base64Util
 from .unit_conversion import UnitConversion
+from .http_client import HTTPSession
 
 
 __author__ = "Sean Douglas"
@@ -52,6 +53,26 @@ def handle_conversion():
     else:
         print(UnitConversion.str_to_bytes(val, binary=binary))
 
+def parse_alt_headers(alt_headers: list) -> dict:
+    return dict([tuple(map(lambda b: b.strip(), a.split(':') )) for a in alt_headers]) if alt_headers else None
+
+
+def handle_request():
+    headers = parse_alt_headers(args.headers)
+    session = HTTPSession(
+        headers=headers,
+        cert=args.cert,
+        key=args.key,
+        password=args.password,
+    )
+    if args.url:
+        r = session.request(url=args.url, data=args.data)
+        if r:
+            print(r['response'])
+            print(r['meta'].get('status'))
+    else:
+        parser.print_usage()
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -73,15 +94,31 @@ if __name__ == "__main__":
     unit_parser.add_argument('-b', '--base10', action='store_true', help='Use base10 format (e.g. 1KB = 1000 Bytes)')
     unit_parser.add_argument('-o', '--output', choices=('string', 'bytes'), help='Action to perform')
 
+
+    request_parser = subparser.add_parser('request', help='Make a http request')
+    request_parser.add_argument('-u', '--url', type=str, help='URL to access')
+    request_parser.add_argument('-d', '--data', help='Data used in POST request')
+    request_parser.add_argument('-c', '--cert', help='PEM certificate file')
+    request_parser.add_argument('-k', '--key', help='PEM keyfile')
+    request_parser.add_argument('-p', '--password', help='Password to decrypt certificate')
+    request_parser.add_argument('-H', '--headers', nargs='+', help='Alternate headers to use. Use curl format, i.e. -H \'Content-Type: application/json\'')
+
     args = parser.parse_args()
 
     if args.command == 'pickle':
         handle_pickle()
+        exit(0)
     elif args.command == 'unpickle':
         handle_unpickle()
+        exit(0)
     elif args.command == 'base64':
         handle_base64()
+        exit(0)
     elif args.command == 'convert':
         handle_conversion()
+        exit(0)
+    elif args.command == 'request':
+        handle_request()
+        exit(0)
     else:
         parser.print_help()

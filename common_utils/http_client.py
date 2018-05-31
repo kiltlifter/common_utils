@@ -25,7 +25,7 @@ class HTTPSession:
             return f.read()
 
     def _opener(self):
-        if os.path.exists(self.cert):
+        if self.cert and os.path.exists(self.cert):
             context = ssl.create_default_context()
             context.load_cert_chain(self.cert, keyfile=self.key, password=self.password)
             opener = build_opener(HTTPSHandler(context=context))
