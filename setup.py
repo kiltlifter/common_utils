@@ -11,12 +11,12 @@ setup(
     version=__version__,
     author='Sean Douglas',
     author_email='seancdouglas@gmail.com',
-    packages=['cm_service'],
+    packages=['common_utils'],
     url='https://github.com/kiltlifter/common_utils',
     license='LICENSE.txt',
     description='Helpful python utilities',
     long_description=open('README.md').read(),
     install_requires=[],
-    python_requires='>=3.5.0'
+    python_requires='>=3.6.0'
 )
 
