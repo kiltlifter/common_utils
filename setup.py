@@ -17,6 +17,6 @@ setup(
     description='Helpful python utilities',
     long_description=open('README.md').read(),
     install_requires=[],
-    python_requires='>=3.6.0'
+    python_requires='>=2.7.0'
 )
 

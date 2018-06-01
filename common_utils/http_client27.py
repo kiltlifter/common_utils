@@ -21,6 +21,9 @@ __license__ = "MIT"
 
 
 class HTTPSession:
+    """
+    Utitlity that facilitates new http/https requests
+    """
     def __init__(self, headers=None, key=None, cert=None, password=None, encoding='utf-8'):
         self.headers = headers
         self.key = key
@@ -28,11 +31,11 @@ class HTTPSession:
         self.password = password
         self.encoding = encoding
 
-    def _file_handler(self, file_path, mode):
-        with open(file_path, mode) as f:
-            return f.read()
-
     def _opener(self):
+        """
+        Creates an SSL or default urllib opener
+        :return: an opener object
+        """
         if self.cert and os.path.exists(self.cert):
             context = ssl.create_default_context()
             context.load_cert_chain(self.cert, keyfile=self.key, password=self.password)
@@ -44,10 +47,13 @@ class HTTPSession:
         return opener
 
     def request(self, url, data=None):
+        """
+        Makes a request on behalf of the client
+        :param url: Resource to access
+        :param data: payload for a POST operation
+        :return: request metadata and response in form of a dict
+        """
         opener = self._opener()
-        try:
-            resp = opener.open(url, data=data.encode(self.encoding) if data else None)
-            meta = vars(resp)
-            return {'meta': meta, 'response': resp.read()}
-        finally:
-            resp.close()
+        resp = opener.open(url, data=data.encode(self.encoding) if data else None)
+        meta = vars(resp)
+        return {'meta': meta, 'response': resp.read()}

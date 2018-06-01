@@ -3,12 +3,19 @@
 Add utilities to the commandline
 """
 
-import argparse
-from .input_output import FileUtil
-from .encoding import Base64Util
-from .unit_conversion import UnitConversion
-from .http_client import HTTPSession
+from __future__ import print_function
 
+import sys
+import argparse
+python_maj_version = float(str(sys.version_info.major)+'.'+str(sys.version_info.minor))
+
+if python_maj_version >= 3.6:
+    from .encoding import Base64Util
+    from .input_output import FileUtil
+    from .unit_conversion import UnitConversion
+    from .http_client import HTTPSession
+else:
+    from .http_client27 import HTTPSession
 
 __author__ = "Sean Douglas"
 __version__ = "0.1.0"
@@ -53,7 +60,8 @@ def handle_conversion():
     else:
         print(UnitConversion.str_to_bytes(val, binary=binary))
 
-def parse_alt_headers(alt_headers: list) -> dict:
+
+def parse_alt_headers(alt_headers):
     return dict([tuple(map(lambda b: b.strip(), a.split(':') )) for a in alt_headers]) if alt_headers else None
 
 
