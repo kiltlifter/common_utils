@@ -26,6 +26,13 @@ class EspeakToMe:
         with Popen(cmd, shell=True, stdout=None, stderr=None) as s:
             pass
 
+    def text_to_wav(self, text: str, output_dir: str=None, output_file: str=None):
+        output = os.path.join(os.path.abspath(output_dir), output_file if output_file else 'espeak-audio-{}.mp3'.format(datetime.now().isoformat()))
+        cmd = 'espeak -g {} -s {} -v {} -w {} \'{}\''.format(self.word_gap, self.wpm, self.voice, output, text)
+        with Popen(cmd, shell=True, stdout=None, stderr=None) as s:
+            pass
+
+
 
 class GoogleTextToSpeach(requests.Session):
     def __init__(
