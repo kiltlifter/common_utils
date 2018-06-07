@@ -12,6 +12,7 @@ if python_maj_version >= 3.6:
     from .input_output import FileUtil
     from .unit_conversion import UnitConversion
     from .http_client import HTTPSession
+    from .text_to_speach import EspeakToMe, GoogleTextToSpeach
 else:
     from .http_client27 import HTTPSession
 
