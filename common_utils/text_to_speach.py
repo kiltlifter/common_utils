@@ -33,7 +33,6 @@ class EspeakToMe:
             pass
 
 
-
 class GoogleTextToSpeach(requests.Session):
     def __init__(
             self, gaccess_token: str, lang_code: str='en-US', lang_name: str='en-US-Standard-C', lang_gender='FEMALE',

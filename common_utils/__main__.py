@@ -16,6 +16,9 @@ if python_maj_version >= 3.6:
     from .http_client import HTTPSession
 else:
     from .http_client27 import HTTPSession
+    from .encoding27 import Base64Util
+    from .input_output27 import FileUtil
+    from .unit_conversion27 import UnitConversion
 
 __author__ = "Sean Douglas"
 __version__ = "0.1.0"
@@ -101,7 +104,6 @@ if __name__ == "__main__":
     unit_parser.add_argument('value', nargs='+', help='Value to convert')
     unit_parser.add_argument('-b', '--base10', action='store_true', help='Use base10 format (e.g. 1KB = 1000 Bytes)')
     unit_parser.add_argument('-o', '--output', choices=('string', 'bytes'), help='Action to perform')
-
 
     request_parser = subparser.add_parser('request', help='Make a http request')
     request_parser.add_argument('-u', '--url', type=str, help='URL to access')

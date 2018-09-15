@@ -15,6 +15,10 @@ if python_maj_version >= 3.6:
     from .text_to_speach import EspeakToMe, GoogleTextToSpeach
 else:
     from .http_client27 import HTTPSession
+    from .encoding27 import Base64Util
+    from .entropy27 import SleepUtil
+    from .input_output27 import FileUtil
+    from .unit_conversion27 import UnitConversion
 
 __author__ = "Sean Douglas"
 __version__ = "0.1.0"

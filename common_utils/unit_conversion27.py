@@ -17,7 +17,7 @@ class UnitConversion:
     """
     units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
 
-    def __init__(self, binary: bool=True):
+    def __init__(self, binary=True):
         self.nn = 1024 if binary else 1000
 
     @staticmethod
